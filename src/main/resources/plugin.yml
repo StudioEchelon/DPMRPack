@@ -1,0 +1,64 @@
+name: DiviserPourMieuxRegner
+version: '${version}'
+main: fr.dpmr.DiviserPourMieuxRegnerPlugin
+api-version: '1.20'
+authors: [ "Thomas", "Cursor" ]
+description: "Mode apocalypse - Diviser Pour Mieux Regner"
+
+softdepend:
+  - Citizens
+
+commands:
+  dpmr:
+    description: "Controle le mode apocalypse et la configuration"
+    usage: "/dpmr <start|stop|status|...|givelaunchpad|launchpads|givegun|...>"
+    permission: dpmr.admin
+  points:
+    description: "Voir ses points"
+    usage: "/points [joueur]"
+  topdpmr:
+    description: "Leaderboard des points"
+    usage: "/topdpmr"
+  clan:
+    description: "Gestion des clans"
+    usage: "/clan <create|join|leave|info|top>"
+  armes:
+    description: "Catalogue des armes par rarete"
+    usage: "/armes"
+  boutique:
+    description: "Acheter des armes avec les points"
+    usage: "/boutique"
+  leaderboard:
+    description: "Classement des points (alias de /topdpmr)"
+    usage: "/leaderboard"
+  hologramtop:
+    description: "Poser ou retirer un hologramme top 10 (admin)"
+    usage: "/hologramtop | /hologramtop remove"
+    permission: dpmr.admin
+  cosmetics:
+    description: "Menu et achats de cosmetics"
+    usage: "/cosmetics | /cosmetics buy <id>"
+  hdv:
+    description: "Hotel des ventes (armes, objets)"
+    usage: "/hdv"
+  ressourcepack:
+    description: "Recharger le resource pack DPMR"
+    usage: "/ressourcepack"
+  profil:
+    description: "Ouvre ton profil et l'arbre d'upgrades"
+    usage: "/profil"
+  lang:
+    description: "Choose display language (en/fr)"
+    usage: "/lang <en|fr>"
+  killdpmrnpcs:
+    description: "Retire tous les PNJ de combat DPMR sur tous les mondes"
+    usage: "/killdpmrnpcs"
+    permission: dpmr.killdpmrnpcs
+
+permissions:
+  dpmr.admin:
+    description: "Permission admin pour gerer le mode DPMR"
+    default: op
+  dpmr.killdpmrnpcs:
+    description: "Tuer / retirer tous les PNJ DPMR (spawners, war world, etc.)"
+    default: op

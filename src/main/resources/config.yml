@@ -1,0 +1,430 @@
+# Tables d'armement : lodestones enregistrees avec /dpmr modtable set
+mod-tables:
+  locations: []
+
+points:
+  per-player-kill: 10
+
+# Objectifs dynamiques (pendant /dpmr start) : rotation automatique, boss bar + ligne scoreboard
+objectives:
+  enabled: true
+  min-gap-seconds: 50
+  first-delay-seconds: 75
+  types:
+    elimination-rush:
+      enabled: true
+      duration-seconds: 300
+      kills-to-win: 2
+      winner-points: 22
+    mob-cull:
+      enabled: true
+      duration-seconds: 180
+      mobs-needed: 35
+      participation-points: 8
+    hot-zone:
+      enabled: true
+      duration-seconds: 240
+      radius: 14
+      player-seconds-needed: 90
+      zone-points: 12
+
+boutique:
+  default-price: 40
+  # Prix par ID d'arme (optionnel, sinon default-price)
+  prices: {}
+  # Vente d'armes (depuis coffres, etc.)
+  # Prix de vente = max(1, round(prix_achat * sell-multiplier)) sauf override dans sell-prices.
+  sell-multiplier: 0.5
+  sell-default-price: 20
+  # Prix de vente par ID d'arme (optionnel)
+  sell-prices: {}
+
+weapons:
+  nuclear-charge-ticks: 400
+  nuclear-radius: 14.0
+  nuclear-damage: 48.0
+  # CustomModelData par arme (pour resource pack / modèles 3D)
+  # Exemple: CARABINE_MK18 utilise GOLDEN_PICKAXE, on override son modèle via CMD=1001
+  custom-model-data:
+    CARABINE_MK18: 1001
+    JERRYCAN: 2001
+    REVOLVER: 5001
+    EP_FUSIL_POMPE: 5002
+    CM_SHOTGUN: 5003
+    CARABINE_RARE: 5004
+    LG_REVOLVER_FLAMME: 5005
+    EP_REVOLVER_CYBER: 5006
+    CM_REVOLVER_CHATAIGNE: 5007
+    EP_POMPE_ACIDE: 5008
+    LG_POMPE_DOUBLE: 5009
+    LG_POMPE_DOUBLE_CYBER: 5010
+    # Pompi / houes / pinceau (overrides dans le resource pack ; sans CMD > 0 = vanilla)
+    FUSIL_POMPE_RL: 5011
+    FUSIL_POMPE_CROIX: 5012
+    GHOST_POMPE: 5013
+    DIVISER_POUR_MIEUX_REGNER: 5014
+    GHOST_DIVISER: 5015
+
+# Ancien bloc bandage (toujours lu pour compat : soins « moyen » par défaut)
+bandage:
+  heal-half-hearts: 6
+  custom-model-data: 3001
+  cooldown-seconds: 5
+
+# Bandages (petit / moyen / grand), medikit, potions de bouclier (absorption)
+consumables:
+  heal-cooldown-seconds: 5
+  shield-cooldown-seconds: 8
+  bandage-small:
+    heal-half-hearts: 2
+    custom-model-data: 3002
+  bandage-medium:
+    heal-half-hearts: 6
+    custom-model-data: 3001
+  bandage-large:
+    heal-half-hearts: 10
+    custom-model-data: 3003
+  medikit:
+    heal-half-hearts: 16
+    custom-model-data: 3004
+  shield-potion-small:
+    absorption-amplifier: 0
+    duration-seconds: 45
+    custom-model-data: 3011
+  shield-potion-medium:
+    absorption-amplifier: 1
+    duration-seconds: 75
+    custom-model-data: 3012
+  shield-potion-large:
+    absorption-amplifier: 2
+    duration-seconds: 120
+    custom-model-data: 3013
+
+radar:
+  custom-model-data: 4001
+  scan-radius: 90
+
+# Launchpads (blocs slime DPMR) — plafond de vitesse pour eviter kick vanilla
+launchpads:
+  max-velocity: 3.8
+  # Style PARACHUTE : impulsion plus forte (avant)
+  parachute-max-velocity: 4.35
+  # Duree des particules "voile" (ticks) apres utilisation du style PARACHUTE
+  parachute-fx-duration-ticks: 220
+  # Sneak pendant le parachute: descente acceleree (vitesse Y negative)
+  parachute-sneak-dive-y: -0.62
+  endportal:
+    enabled: false
+    # Jusqu'a 10 destinations (format: world;x;y;z;yaw;pitch), choisies aleatoirement.
+    targets: []
+    target:
+      world: "world"
+      x: 0.0
+      y: 80.0
+      z: 0.0
+      yaw: 0.0
+      pitch: 0.0
+  teleporter-block:
+    enabled: true
+    material: "AMETHYST_BLOCK"
+
+loot:
+  airdrop:
+    # Si true, l'airdrop spawn sur la position fixe ci-dessous (sinon: proche d'un joueur aléatoire).
+    fixed-enabled: false
+    fixed-location:
+      world: "world"
+      x: 0
+      y: 80
+      z: 0
+    # Hauteur de spawn au-dessus de la cible
+    spawn-height: 28
+    # Vitesse de descente (blocs/tick) - plus petit = plus lent
+    fall-speed: 0.06
+    # Temps d'ouverture (secondes)
+    open-seconds: 5
+    # Loot: nb d'armes tirées dans les pools
+    rolls-min: 2
+    rolls-max: 3
+    # % de chance (0..1) qu'un roll prenne une arme legendaire (sinon épique)
+    legendary-chance: 0.55
+    # Contenu du largage de type « Medical » (bandages, medikit, potions bouclier, lance-soin…)
+    medical:
+      bandage-stacks-min: 3
+      bandage-stacks-max: 5
+      bandages-per-stack-min: 2
+      bandages-per-stack-max: 6
+      shield-potion-stacks-min: 1
+      shield-potion-stacks-max: 2
+      shield-potion-per-stack-min: 1
+      shield-potion-per-stack-max: 2
+      medikit-stacks-min: 1
+      medikit-stacks-max: 2
+      medikit-per-stack-min: 1
+      medikit-per-stack-max: 2
+      include-lance-soin: true
+      include-serum-soin: true
+  configured-chest-respawn-seconds: 120
+  # Poids des raretés (total plus lourd sur COMMON)
+  rarity-weights:
+    COMMON: 72
+    UNCOMMON: 18
+    RARE: 7
+    EPIC: 2
+    LEGENDARY: 1
+    MYTHIC: 1
+  configured-chest-rarity-weights:
+    COMMON: 55
+    UNCOMMON: 27
+    RARE: 13
+    EPIC: 5
+  # Coffre loot: au plus 1 arme DPMR (0 = parfois pas d'arme, 1 = toujours une arme si le pool le permet)
+  chest-weapon-min: 0
+  chest-weapon-max: 1
+  # Pièces d'armure DPMR (profil + slot aléatoires)
+  chest-armor-min: 0
+  chest-armor-max: 1
+  # Ancien nom (armes uniquement) — ignoré si chest-weapon-min/max sont définis ; sinon plafonné à 1 arme
+  chest-rolls-min: 0
+  chest-rolls-max: 1
+  bandage-stacks-min: 2
+  bandage-stacks-max: 5
+  bandages-per-stack-min: 1
+  bandages-per-stack-max: 3
+  # Poids pour les stacks « soins » (bandages + medikit) dans les coffres
+  bandage-type-weights:
+    bandage-small: 28
+    bandage-medium: 40
+    bandage-large: 22
+    medikit: 10
+  shield-potion-stacks-min: 0
+  shield-potion-stacks-max: 1
+  shield-potion-per-stack-min: 1
+  shield-potion-per-stack-max: 1
+  shield-potion-type-weights:
+    shield-potion-small: 50
+    shield-potion-medium: 35
+    shield-potion-large: 15
+  # Armes DPMR (IDs en majuscules, /dpmr guns) — catalogue reduit
+  chest-weapons:
+    - "JERRYCAN"
+    - "CM_BAMBOU"
+    - "GLITCH"
+    - "GLOCK18"
+    - "REVOLVER"
+    - "CM_REVOLVER_CHATAIGNE"
+    - "CM_SHOTGUN"
+    - "CM_PEPITE"
+    - "CM_PANNEAU"
+    - "HURRICANE"
+    - "AK47"
+    - "CARABINE_MK18"
+    - "CARABINE_RARE"
+    - "FUSIL_POMPE_RL"
+    - "NOVA"
+    - "PULSE"
+    - "UC_EPEE_BOIS"
+    - "BOMB_ORB"
+    - "DEAGLE_RL"
+    - "FUSIL_POMPE_CROIX"
+    - "LANCE_MARRONS"
+    - "RADIANT"
+    - "RZ_COEUR_MER"
+    - "SERUM_SOIN"
+    - "LANCE_SOIN"
+    - "DRAGUNOV_SVD"
+    - "EP_DRAGON"
+    - "EP_GRIMOIRE"
+    - "EP_NETH_INGOT"
+    - "EP_PHANTOM"
+    - "EP_FUSIL_POMPE"
+    - "EP_POMPE_ACIDE"
+    - "EP_REVOLVER_CYBER"
+    - "GRAPPIN_RL"
+    - "SOLAR"
+    - "LG_TOTEM"
+    - "LG_WITHER"
+    - "AWP"
+    - "LG_REVOLVER_FLAMME"
+    - "LG_POMPE_DOUBLE"
+    - "DIVISER_POUR_MIEUX_REGNER"
+    - "INFERNO"
+    - "LG_ANCRE"
+    - "LG_BEACON"
+    - "MINIGUN_M134"
+    - "THUNDER"
+    - "LG_POMPE_DOUBLE_CYBER"
+    - "LG_TETE_DRAGON"
+  legendary-weapons:
+    - "AWP"
+    - "LG_REVOLVER_FLAMME"
+    - "LG_POMPE_DOUBLE"
+    - "DIVISER_POUR_MIEUX_REGNER"
+    - "INFERNO"
+    - "LG_ANCRE"
+    - "LG_BEACON"
+    - "MINIGUN_M134"
+    - "THUNDER"
+    - "LG_POMPE_DOUBLE_CYBER"
+    - "LG_TETE_DRAGON"
+    - "GHOST_NUKE"
+    - "GHOST_LANCE_FLAMME"
+    - "GHOST_POMPE"
+    - "GHOST_DIVISER"
+  airdrop-interval-seconds: 300
+  chest-spawn-interval-seconds: 180
+  chest-spawn-max-active: 5
+  chest-spawn-zone:
+    enabled: false
+    world: "world"
+    corner-a:
+      x: 0
+      y: 60
+      z: 0
+    corner-b:
+      x: 32
+      y: 80
+      z: 32
+
+boosts:
+  spawn-interval-seconds: 120
+  available:
+    - "INVINCIBILITY"
+    - "RAPID_FIRE"
+    - "SPEED"
+
+zones:
+  safe:
+    enabled: false
+    world: "world"
+    x: 0
+    y: 80
+    z: 0
+    radius: 18
+  # Si enabled=true: les armes/familiers ne marchent que DANS la war zone (et jamais dans safe).
+  war:
+    enabled: false
+    world: "world"
+    x: 0
+    y: 80
+    z: 0
+    radius: 120
+
+# Vagues PNJ sur blocs spawner enregistrés (/dpmr npcspawner) — valeurs basses = peu de PNJ, pas de pic au reload
+npc-spawners:
+  # Delai entre deux verifications par spawner (ticks). 120 = 6 s
+  auto-check-period-ticks: 120
+  # Premier passage apres demarrage / reload (evite rafale au 1er tick)
+  first-check-delay-ticks: 220
+  # Entre deux vagues reussies pour un meme spawner (ms)
+  auto-spawn-interval-ms: 120000
+  # Au chargement : chaque spawner attend entre ~12 s et cette valeur avant sa 1re vague
+  startup-stagger-max-ms: 180000
+  wave-min: 1
+  wave-max: 1
+  combat-tick-period: 3
+  silent-npcs: false
+
+# PNJ aléatoires zone war + événement hélicoptère (nécessite zones.war.enabled=true sauf fallback ci-dessous)
+npc-war-world:
+  ambient:
+    enabled: true
+    # Un seul PNJ au plus par cycle ; chance appliquée à chaque tick de timer
+    interval-ticks: 7200
+    attempt-chance: 0.12
+    max-active: 3
+    require-war-zone: true
+    surface-attempts: 52
+    kind: "MILITARY"
+    reward-points: 4
+    gold-min: 1
+    gold-max: 3
+    despawn-ticks: 5200
+    # Si require-war-zone: false (war désactivée) : spawn autour du spawn du monde, hors safe
+    fallback-world: "world"
+    fallback-spread: 80
+  helicopter:
+    enabled: true
+    interval-seconds: 1800
+    require-war-zone: true
+    surface-attempts: 72
+    soldiers-min: 2
+    soldiers-max: 4
+    spawn-radius: 5.8
+    reward-points: 6
+    gold-min: 2
+    gold-max: 5
+    despawn-ticks: 7200
+    broadcast: true
+    chest-offset-x: 1
+    chest-offset-z: 1
+    fallback-world: "world"
+    fallback-spread: 110
+    chest:
+      legendary-chance-per-weapon: 0.38
+      weapon-rolls-min: 2
+      weapon-rolls-max: 4
+      armor-pieces-min: 1
+      armor-pieces-max: 2
+      bandage-stacks-min: 3
+      bandage-stacks-max: 6
+      bandages-per-stack-min: 2
+      bandages-per-stack-max: 5
+      shield-potion-stacks-min: 1
+      shield-potion-stacks-max: 2
+      shield-potion-per-stack-min: 1
+      shield-potion-per-stack-max: 2
+
+resource-pack:
+  enabled: true
+  # bundled / local = HTTP integre sur le VPS (port + pare-feu) | external = url + sha1 fixes dans ce fichier
+  # manifest = JSON HTTPS (GitHub raw, etc.) → url + sha1 du zip ; recommande si le pack ne charge pas en bundled
+  source: bundled
+  # JSON public. Avec GitHub Actions (.github/workflows/resourcepack.yml) : apres push textures,
+  # le workflow remplit hosted/dpmr-pack-manifest.json → URL du type raw.githubusercontent.com/USER/REPO/main/hosted/...
+  manifest:
+    url: ""
+    # 0 = seulement au demarrage et /dpmr warworld reload ; >0 = re-telecharge le manifest toutes les N secondes
+    refresh-seconds: 900
+  # --- Mode bundled / local : mini serveur HTTP dans le plugin (ouvre le port sur le pare-feu) ---
+  local:
+    # Chemin ou le zip est ecrit (bundled = extrait du jar a chaque demarrage)
+    file: "resource-pack/dpmr-pack.zip"
+    http-port: 8163
+    http-path: "/dpmr-pack.zip"
+    bind-address: "0.0.0.0"
+    # IP ou domaine PUBLIC du serveur (sans http://). Si rempli et public-url vide → URL = http://HOST:PORT + http-path
+    public-host: ""
+    # Laisse vide pour utiliser public-host + port + chemin ; sinon prioritaire
+    public-url: ""
+  # --- Mode external (et secours si le manifest echoue) ---
+  # URL directe vers le .zip du pack (doit renvoyer le fichier brut, pas une page HTML)
+  url: ""
+  # SHA1 hex (40 car.) du fichier .zip — OBLIGATOIRE pour que les nouvelles textures s’appliquent :
+  #   macOS/Linux: shasum -a 1 dist/dpmr-pack.zip   ou   openssl dgst -sha1 -hex dist/dpmr-pack.zip
+  # Sans hash correct, le client garde l’ancien pack ou refuse le téléchargement.
+  sha1: ""
+  # Incrémente (1, 2, 3…) à chaque nouveau zip SI tu ne peux pas mettre à jour sha1 tout de suite :
+  # ajoute ?dpmr_pack_rev=N à l’URL vue par le client pour casser le cache (CDN + client).
+  pack-revision: 0
+  # Sur /ressourcepack : ajoute dpmr_t=timestamp à l’URL pour forcer un nouveau téléchargement
+  cache-bust-on-manual-command: true
+  # Si true: kick si refus/échec du pack
+  force: true
+  # Délai avant kick auto si pack pas chargé (ticks)
+  kick-delay-ticks: 900
+  # Si true: kick aussi après FAILED_DOWNLOAD (sinon seulement DECLINED ou timeout)
+  kick-on-failed-download: false
+  # Message affiché au joueur
+  prompt: "Pack DPMR requis (armes 3D + sons)."
+
+safe-respawn:
+  enabled: true
+  respawn-health: 20.0
+  spawn:
+    world: "world"
+    x: 0
+    y: 80
+    z: 0
+    yaw: 0
+    pitch: 0

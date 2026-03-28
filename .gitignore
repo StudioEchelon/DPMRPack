@@ -1,0 +1,17 @@
+# Gradle / Java
+build/
+.gradle/
+out/
+*.class
+
+# IDE / OS
+.idea/
+.vscode/
+*.iml
+.DS_Store
+
+# Build output (regen: scripts/build-resourcepack.sh)
+dist/
+
+# Local / secrets
+*.log

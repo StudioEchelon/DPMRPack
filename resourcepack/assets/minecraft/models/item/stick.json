@@ -1,0 +1,24 @@
+{
+  "parent": "minecraft:item/handheld_rod",
+  "textures": {
+    "layer0": "minecraft:item/stick"
+  },
+  "overrides": [
+    {
+      "predicate": { "custom_model_data": 5001 },
+      "model": "dpmr:item/revolver"
+    },
+    {
+      "predicate": { "custom_model_data": 5005 },
+      "model": "dpmr:item/revolver_flamme"
+    },
+    {
+      "predicate": { "custom_model_data": 5006 },
+      "model": "dpmr:item/revolver_cyber"
+    },
+    {
+      "predicate": { "custom_model_data": 5007 },
+      "model": "dpmr:item/revolver_chataigne"
+    }
+  ]
+}

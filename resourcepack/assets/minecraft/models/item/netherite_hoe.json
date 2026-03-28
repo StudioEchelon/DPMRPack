@@ -1,0 +1,16 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "minecraft:item/netherite_hoe"
+  },
+  "overrides": [
+    {
+      "predicate": { "custom_model_data": 5014 },
+      "model": "dpmr:item/diviser_pmr"
+    },
+    {
+      "predicate": { "custom_model_data": 5015 },
+      "model": "dpmr:item/ghost_diviser"
+    }
+  ]
+}

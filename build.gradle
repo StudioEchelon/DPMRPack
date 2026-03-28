@@ -1,0 +1,51 @@
+plugins {
+    id 'java'
+}
+
+group = 'fr.dpmr'
+version = '1.8.0'
+
+repositories {
+    mavenCentral()
+    maven {
+        name = 'papermc'
+        url = 'https://repo.papermc.io/repository/maven-public/'
+    }
+}
+
+dependencies {
+    compileOnly 'io.papermc.paper:paper-api:1.20.6-R0.1-SNAPSHOT'
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+    options.release = 21
+}
+
+def distPackZip = layout.projectDirectory.file('dist/dpmr-pack.zip')
+def generatedPackResources = layout.buildDirectory.dir('generated-resourcepack')
+
+tasks.register('embedDpmrResourcePack', Copy) {
+    group = 'build'
+    description = 'Copie dist/dpmr-pack.zip dans les ressources du jar (mode bundled). Lance avant: bash scripts/build-resourcepack.sh'
+    from(distPackZip)
+    into(generatedPackResources)
+    rename { 'dpmr-pack.zip' }
+    onlyIf { distPackZip.asFile.exists() }
+}
+
+sourceSets.main.resources.srcDir(generatedPackResources)
+
+processResources {
+    dependsOn embedDpmrResourcePack
+    filteringCharset 'UTF-8'
+    filesMatching('**/plugin.yml') {
+        expand 'version': project.version
+    }
+}

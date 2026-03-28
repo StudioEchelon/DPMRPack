@@ -1,0 +1,21 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "minecraft:item/potion_overlay",
+    "layer1": "minecraft:item/potion"
+  },
+  "overrides": [
+    {
+      "predicate": { "custom_model_data": 3011 },
+      "model": "dpmr:item/shield_potion_small"
+    },
+    {
+      "predicate": { "custom_model_data": 3012 },
+      "model": "dpmr:item/shield_potion_medium"
+    },
+    {
+      "predicate": { "custom_model_data": 3013 },
+      "model": "dpmr:item/shield_potion_large"
+    }
+  ]
+}

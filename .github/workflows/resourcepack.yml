@@ -1,0 +1,55 @@
+# Rebuild dpmr-pack.zip + manifest JSON et commit dans hosted/
+# Declenchement : push sur assets/, resourcepack/, ou le script de build — pas sur hosted/ (evite boucle).
+# Sur le serveur MC : resource-pack.source manifest + manifest.url vers le JSON ci-dessous (branche main).
+name: Resource pack
+
+on:
+  push:
+    branches: [main, master]
+    paths:
+      - "assets/**"
+      - "resourcepack/**"
+      - "scripts/build-resourcepack.sh"
+      - ".github/workflows/resourcepack.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: resourcepack-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build zip
+        run: bash scripts/build-resourcepack.sh
+
+      - name: Copy to hosted + write manifest
+        env:
+          REPO_FULL: ${{ github.repository }}
+          REF_NAME: ${{ github.ref_name }}
+        run: |
+          mkdir -p hosted
+          cp -f dist/dpmr-pack.zip hosted/dpmr-pack.zip
+          SHA1=$(shasum -a 1 hosted/dpmr-pack.zip | awk '{print $1}')
+          URL_ZIP="https://raw.githubusercontent.com/${REPO_FULL}/${REF_NAME}/hosted/dpmr-pack.zip"
+          printf '%s\n' "{\"url\":\"${URL_ZIP}\",\"sha1\":\"${SHA1}\"}" > hosted/dpmr-pack-manifest.json
+          echo "Manifest:"
+          cat hosted/dpmr-pack-manifest.json
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add hosted/dpmr-pack.zip hosted/dpmr-pack-manifest.json
+          if git diff --staged --quiet; then
+            echo "Aucun changement (zip identique)."
+          else
+            git commit -m "chore: maj resource pack (hosted/)"
+            git push
+          fi

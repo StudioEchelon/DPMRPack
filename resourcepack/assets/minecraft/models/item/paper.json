@@ -1,0 +1,25 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "minecraft:item/paper"
+  },
+  "overrides": [
+    {
+      "predicate": { "custom_model_data": 3001 },
+      "model": "dpmr:item/bandage"
+    },
+    {
+      "predicate": { "custom_model_data": 3002 },
+      "model": "dpmr:item/bandage_small"
+    },
+    {
+      "predicate": { "custom_model_data": 3003 },
+      "model": "dpmr:item/bandage_large"
+    },
+    {
+      "predicate": { "custom_model_data": 3004 },
+      "model": "dpmr:item/medikit"
+    }
+  ]
+}
+
