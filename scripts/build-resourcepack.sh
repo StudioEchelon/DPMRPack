@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
+# Les PNG du pack sont TOUJOURS recopies depuis assets/ vers resourcepack/ ci-dessous.
+# Si tu modifies seulement resourcepack/assets/dpmr/textures/item/*.png, le prochain
+# lancement de ce script ecrase tes changements. Edite les fichiers dans assets/ (meme noms).
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 PACK_DIR="$ROOT_DIR/resourcepack"
